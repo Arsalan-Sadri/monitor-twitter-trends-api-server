@@ -1,21 +1,22 @@
 require('dotenv').config();
+const { Client } = require('@elastic/elasticsearch');
+const { PORT, ID, USERNAME, PASSWORD } = require('./config.js');
 const app = require('./app.js');
-const { PORT } = require('./config.js');
 
-(async function () {
-  // const client = await Client({
-  //   cloud: {
-  //     id: ID,
-  //   },
-  //   auth: {
-  //     username: USERNAME,
-  //     password: PASSWORD,
-  //   },
-  // });
+app.client = new Client({ node: 'http://localhost:9200' });
 
-  app.listen(PORT, () =>
-    app.env === 'development'
-      ? console.log(`Server is running on http://localhost:${PORT}`)
-      : true
-  );
-})().catch((err) => console.error(err));
+// const client = await Client({
+//   cloud: {
+//     id: ID,
+//   },
+//   auth: {
+//     username: USERNAME,
+//     password: PASSWORD,
+//   },
+// });
+
+app.listen(PORT, () =>
+  app.env === 'development'
+    ? console.log(`Server is running on http://localhost:${PORT}`)
+    : true
+);

@@ -7,8 +7,7 @@ router
     ctx.body = JSON.stringify(dbCar);
   })
   .get('/api/cars', async (ctx) => {
-    const allData = await carController.findAll(ctx);
-    ctx.body = allData;
+    ctx.body = await carController.findAll(ctx.app.client);
   })
   .delete('/api/cars/:make/:model/:year', async (ctx, next) => {
     await carController.deleteOne(ctx);

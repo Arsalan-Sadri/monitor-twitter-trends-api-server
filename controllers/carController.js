@@ -1,23 +1,18 @@
-const { ID, USERNAME, PASSWORD } = require('../config.js');
-
-const { Client } = require('@elastic/elasticsearch');
-const client = new Client({ node: 'http://localhost:9200' });
-
 module.exports = {
   addOne: (ctx) => {
     return client.Car.create(ctx.request.body);
   },
-  findAll: async (ctx) => {
+  findAll: async (client) => {
     const { body } = await client.search({
       index: 'game-of-thrones',
       body: {
         query: {
-          match: { quote: 'winter' },
+          match_all: {},
         },
       },
     });
-    console.log(body.hits.hits);
-    return JSON.stringify(body.hits.hits)
+
+    return body.hits.hits;
   },
   deleteOne: ({ params }) => {
     const { make, model, year } = params;
