@@ -1,5 +1,5 @@
 module.exports = {
-  addOne: (ctx) => {
+  insertOne: (ctx) => {
     return client.Car.create(ctx.request.body);
   },
 
