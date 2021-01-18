@@ -6,6 +6,6 @@ app.client = client;
 
 app.listen(process.env.PORT, () =>
   app.env === 'development'
-    ? console.log(`Server is running on http://localhost:${PORT}`)
+    ? console.log(`Server is running on http://localhost:${process.env.PORT}`)
     : true
 );
