@@ -1,0 +1,36 @@
+{
+  "name": "my-drill-app",
+  "version": "1.0.0",
+  "description": "Koa.js api server",
+  "main": "server.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha",
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "dev:prod-db": "NODE_ENV=production npm run dev",
+    "deploy": "git push heroku master",
+    "deploy:heroku:create": "heroku create && npm run set:prod:env && npm run deploy",
+    "set:heroku:env": "source .heroku-env && heroku config:set MONGODB_PRODUCTION_URI=$MONGODB_PRODUCTION_URI"
+  },
+  "engines": {
+    "node": "14.x"
+  },
+  "keywords": [],
+  "author": "Arsalan Sadri",
+  "license": "ISC",
+  "dependencies": {
+    "@elastic/elasticsearch": "^7.10.0",
+    "dotenv": "^8.2.0",
+    "if-env": "^1.0.4",
+    "koa": "^2.13.1",
+    "koa-body": "^4.2.0",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^10.0.0",
+    "mongoose": "^5.11.9"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.2.1",
+    "supertest": "^6.0.1"
+  }
+}
