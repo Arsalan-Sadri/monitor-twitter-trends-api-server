@@ -16,9 +16,8 @@ module.exports = {
         },
       },
     });
-
     console.log(body.hits.hits);
-    return;
+    return JSON.stringify(body.hits.hits)
   },
   deleteOne: ({ params }) => {
     const { make, model, year } = params;

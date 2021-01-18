@@ -7,10 +7,8 @@ router
     ctx.body = JSON.stringify(dbCar);
   })
   .get('/api/cars', async (ctx) => {
-    const allCars = await carController.findAll(ctx);
-    // ctx.body = JSON.stringify(allCars);
-    // ctx.body = {"make":"GMC","model":"3500 Club Coupe","year":1995};
-    ctx.body = { okay: 'yessss' };
+    const allData = await carController.findAll(ctx);
+    ctx.body = allData;
   })
   .delete('/api/cars/:make/:model/:year', async (ctx, next) => {
     await carController.deleteOne(ctx);
