@@ -27,9 +27,6 @@ const { client } = require('../config.js');
           username: {
             type: 'keyword',
           },
-          email: {
-            type: 'keyword',
-          },
           id: {
             type: 'keyword',
           },
