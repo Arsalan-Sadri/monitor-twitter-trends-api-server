@@ -6,8 +6,8 @@ router
     const dbCar = await carController.addOne(ctx);
     ctx.body = JSON.stringify(dbCar);
   })
-  .get('/api/cars', async (ctx) => {
-    ctx.body = await carController.findAll(ctx.app.client);
+  .get('/api/tweets', async (ctx) => {
+    ctx.body = await carController.getAll(ctx.app.client);
   })
   .delete('/api/cars/:make/:model/:year', async (ctx, next) => {
     await carController.deleteOne(ctx);

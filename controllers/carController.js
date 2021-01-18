@@ -2,7 +2,7 @@ module.exports = {
   addOne: (ctx) => {
     return client.Car.create(ctx.request.body);
   },
-  findAll: async (client) => {
+  getAll: async (client) => {
     const { body } = await client.search({
       index: 'game-of-thrones',
       body: {
