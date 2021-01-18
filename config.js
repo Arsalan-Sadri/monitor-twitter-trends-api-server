@@ -24,5 +24,3 @@ if (NODE_ENV === 'development') {
     }),
   };
 }
-
-module.exports.PORT = process.env.PORT;
