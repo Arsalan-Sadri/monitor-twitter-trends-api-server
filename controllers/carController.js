@@ -1,17 +1,31 @@
-const db = require('../models');
+const { ID, USERNAME, PASSWORD } = require('../config.js');
+
+const { Client } = require('@elastic/elasticsearch');
+const client = new Client({ node: 'http://localhost:9200' });
 
 module.exports = {
   addOne: (ctx) => {
-    return db.Car.create(ctx.request.body);
+    return client.Car.create(ctx.request.body);
   },
-  findAll: (ctx) => {
-    return db.Car.find({});
+  findAll: async (ctx) => {
+    console.log(client);
+    const { body } = await client.search({
+      index: 'game-of-thrones',
+      body: {
+        query: {
+          match: { quote: 'winter' },
+        },
+      },
+    });
+
+    console.log(body.hits.hits);
+    return;
   },
   deleteOne: ({ params }) => {
     const { make, model, year } = params;
-    return db.Car.findOneAndDelete({ make, model, year });
+    return client.Car.findOneAndDelete({ make, model, year });
   },
   updateOne: ({ params: { make, model, year }, request: { body } }) => {
-    return db.Car.findOneAndUpdate({ make, model, year }, body);
+    return client.Car.findOneAndUpdate({ make, model, year }, body);
   },
 };

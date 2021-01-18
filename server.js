@@ -1,14 +1,17 @@
 require('dotenv').config();
-const mongoose = require('mongoose');
 const app = require('./app.js');
-const { PORT, MONGODB_URI } = require('./config.js');
+const { PORT } = require('./config.js');
 
 (async function () {
-  await mongoose.connect(MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-  });
+  // const client = await Client({
+  //   cloud: {
+  //     id: ID,
+  //   },
+  //   auth: {
+  //     username: USERNAME,
+  //     password: PASSWORD,
+  //   },
+  // });
 
   app.listen(PORT, () =>
     app.env === 'development'
