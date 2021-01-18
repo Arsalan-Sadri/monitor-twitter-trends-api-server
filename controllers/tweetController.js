@@ -1,6 +1,8 @@
 module.exports = {
-  insertOne: (ctx) => {
-    return client.Car.create(ctx.request.body);
+  insertMany: (client) => {
+    
+
+    return true
   },
 
   getAll: async (client) => {

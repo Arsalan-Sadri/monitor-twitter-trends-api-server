@@ -4,9 +4,8 @@ const tweetController = require('../controllers/tweetController.js');
 const BASE = '/api/tweets';
 
 router
-  .post(`${BASE}`, async (ctx) => {
-    const dbCar = await tweetController.insertOne(ctx);
-    ctx.body = JSON.stringify(dbCar);
+  .post(`${BASE}/bulk`, async (ctx) => {
+    ctx.body = await tweetController.insertMany(ctx.app.client);
   })
 
   .get(`${BASE}`, async (ctx) => {

@@ -1,6 +1,18 @@
 const { client } = require('../config.js');
 
 (async function run() {
+  let res;
+
+  res = await client.indices.exists({
+    index: 'twitter',
+  });
+
+  if (res.statusCode === 200) {
+    await client.indices.delete({
+      index: 'twitter',
+    });
+  }
+
   await client.indices.create({
     index: 'twitter',
     body: {
@@ -18,6 +30,9 @@ const { client } = require('../config.js');
           email: {
             type: 'keyword',
           },
+          id: {
+            type: 'keyword',
+          },
           text: {
             type: 'text',
           },
@@ -32,7 +47,7 @@ const { client } = require('../config.js');
     },
   });
 
-  const res = await client.indices.getMapping({
+  res = await client.indices.getMapping({
     index: 'twitter',
   });
 
