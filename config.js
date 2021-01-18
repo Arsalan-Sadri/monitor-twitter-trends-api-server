@@ -1,13 +1,28 @@
-const {
-  PORT,
-  ELASTIC_CLOUD_ID: ID,
-  ELASTIC_CLOUD_USERNAME: USERNAME,
-  ELASTIC_CLOUD_PASSWORD: PASSWORD,
-} = process.env;
+const { Client } = require('@elastic/elasticsearch');
+const NODE_ENV = process.env.NODE_ENV || 'development';
 
-module.exports = {
-  PORT,
-  ID,
-  USERNAME,
-  PASSWORD,
-};
+if (NODE_ENV === 'development') {
+  module.exports = {
+    client: new Client({ node: 'http://localhost:9200' }),
+  };
+} else {
+  const {
+    ELASTIC_CLOUD_ID: ID,
+    ELASTIC_CLOUD_USERNAME: USERNAME,
+    ELASTIC_CLOUD_PASSWORD: PASSWORD,
+  } = process.env;
+
+  module.exports = {
+    client: new Client({
+      cloud: {
+        id: ID,
+      },
+      auth: {
+        username: USERNAME,
+        password: PASSWORD,
+      },
+    }),
+  };
+}
+
+module.exports.PORT = process.env.PORT;

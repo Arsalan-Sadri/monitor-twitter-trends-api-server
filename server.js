@@ -1,19 +1,8 @@
 require('dotenv').config();
-const { Client } = require('@elastic/elasticsearch');
-const { PORT, ID, USERNAME, PASSWORD } = require('./config.js');
 const app = require('./app.js');
+const { client, PORT } = require('./config.js');
 
-app.client = new Client({ node: 'http://localhost:9200' });
-
-// const client = await Client({
-//   cloud: {
-//     id: ID,
-//   },
-//   auth: {
-//     username: USERNAME,
-//     password: PASSWORD,
-//   },
-// });
+app.client = client;
 
 app.listen(PORT, () =>
   app.env === 'development'
