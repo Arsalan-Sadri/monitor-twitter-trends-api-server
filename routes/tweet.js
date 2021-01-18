@@ -5,7 +5,7 @@ const BASE = '/api/tweets';
 
 router
   .post(`${BASE}`, async (ctx) => {
-    const dbCar = await tweetController.addOne(ctx);
+    const dbCar = await tweetController.insertOne(ctx);
     ctx.body = JSON.stringify(dbCar);
   })
   .get(`${BASE}`, async (ctx) => {
