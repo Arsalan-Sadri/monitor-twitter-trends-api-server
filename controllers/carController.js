@@ -8,7 +8,6 @@ module.exports = {
     return client.Car.create(ctx.request.body);
   },
   findAll: async (ctx) => {
-    console.log(client);
     const { body } = await client.search({
       index: 'game-of-thrones',
       body: {
