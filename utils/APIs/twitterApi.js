@@ -16,6 +16,25 @@ const STREAM_BASE_ENDPOINT = 'https://api.twitter.com/2/tweets/search/stream';
 // ];
 
 module.exports = {
+  addRules: async (rules) => {
+    const addRules = {
+      add: rules,
+    };
+
+    const res = await needle('post', RULES_BASE_ENDPOINT, addRules, {
+      headers: {
+        'content-type': 'application/json',
+        authorization: `Bearer ${TOKEN}`,
+      },
+    });
+
+    if (res.statusCode !== 201) {
+      throw new Error(res.body);
+    }
+
+    return res.body.data;
+  },
+
   getAllRules: async () => {
     const response = await needle('get', RULES_BASE_ENDPOINT, {
       headers: {
@@ -56,25 +75,6 @@ module.exports = {
     }
 
     return response.body;
-  },
-
-  addRules: async (rules) => {
-    const addRules = {
-      add: rules,
-    };
-
-    const res = await needle('post', RULES_BASE_ENDPOINT, addRules, {
-      headers: {
-        'content-type': 'application/json',
-        authorization: `Bearer ${TOKEN}`,
-      },
-    });
-
-    if (res.statusCode !== 201) {
-      throw new Error(res.body);
-    }
-
-    return res.body.data
   },
 
   streamConnect: () => {

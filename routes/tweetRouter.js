@@ -14,6 +14,8 @@ router
 
     await tweetController.insertOne(ctx.app.client, newRule, 'rule');
 
+    
+
     // ctx.body = await tweetController.insertMany(ctx.app.client);
     ctx.body = { okay: 'yessss!' };
   })
