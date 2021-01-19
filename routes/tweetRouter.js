@@ -8,16 +8,13 @@ const BASE = '/v1/tweets';
 
 router
   .get(`${BASE}/search/recent`, async (ctx) => {
-    // const { query } = ctx.request.query;
+    const { query } = ctx.request.query;
 
-    // const { data } = await twitterApi.searchRecent(query);
+    const { data } = await twitterApi.searchRecent(query);
 
-    // await tweetController.bulk(ctx.app.client, data, 'tweet');
+    await tweetController.bulk(ctx.app.client, data, 'tweet');
 
-    const tweets = await tweetController.searchAll(ctx.app.client);
-    console.log(tweets);
-    // ctx.body = await tweetController.insertMany(ctx.app.client);
-    ctx.body = { okay: 'yessss!' };
+    ctx.body = await tweetController.searchAll(ctx.app.client);
   })
 
   .post(`${BASE}/search/stream`, async (ctx) => {

@@ -2,15 +2,11 @@ module.exports = {
   indexOne: async (client, doc, type) => {
     doc.type = type;
 
-    const res = await client.index({
+    await client.index({
       index: 'twitter',
       refresh: 'true',
       body: doc,
     });
-
-    if (res.statusCode !== 201) {
-      throw new Error(res.body);
-    }
   },
 
   bulk: async (client, docs, type) => {
@@ -22,14 +18,10 @@ module.exports = {
       },
     ]);
 
-    const res = await client.bulk({
+    await client.bulk({
       refresh: 'true',
       body,
     });
-
-    if (res.statusCode !== 200) {
-      throw new Error(res.body);
-    }
   },
 
   searchAll: async (client) => {
