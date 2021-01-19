@@ -1,8 +1,10 @@
 module.exports = {
   insertOne: async (client, doc, type) => {
-    
+    doc.type = type;
+
     const res = await client.index({
       index: 'twitter',
+      refresh: 'true',
       body: doc,
     });
 
