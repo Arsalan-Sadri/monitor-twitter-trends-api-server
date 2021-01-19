@@ -12,8 +12,7 @@ router
 
     const { data } = await twitterApi.searchRecent(query);
 
-    console.log(data);
-    // await tweetController.bulk(ctx.app.client, data, 'tweet');
+    await tweetController.bulk(ctx.app.client, data, 'tweet');
 
     // ctx.body = await tweetController.insertMany(ctx.app.client);
     ctx.body = { okay: 'yessss!' };

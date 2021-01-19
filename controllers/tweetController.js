@@ -14,10 +14,10 @@ module.exports = {
   },
 
   bulk: async (client, docs, type) => {
-    dataSet = docs.map((doc) => {
-      doc, type;
-    });
-    console.log(dataSet);
+    docs = docs.map((doc) => ({
+      ...doc,
+      type,
+    }));
 
     // const res = await client.bulk({
     //   index: 'twitter',
