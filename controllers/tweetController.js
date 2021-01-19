@@ -1,8 +1,16 @@
 module.exports = {
-  insertMany: (client) => {
+  insertOne: async (client, doc, type) => {
     
+    const res = await client.index({
+      index: 'twitter',
+      body: doc,
+    });
 
-    return true
+    console.log(res);
+  },
+
+  insertMany: (client) => {
+    return true;
   },
 
   getAll: async (client) => {

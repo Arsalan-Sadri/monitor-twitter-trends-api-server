@@ -1,6 +1,8 @@
 const router = require('koa-router')();
 const tweetController = require('../controllers/tweetController.js');
-const { api: { twitterApi } } = require('../utils');
+const {
+  api: { twitterApi },
+} = require('../utils');
 
 const BASE = '/v1/tweets';
 
@@ -8,10 +10,12 @@ router
   .post(`${BASE}/search/recent`, async (ctx) => {
     const rules = ctx.request.body;
 
-    await twitterApi.addRules(rules);
+    const [newRule] = await twitterApi.addRules(rules);
+
+    await tweetController.insertOne(ctx.app.client, newRule, 'rule');
 
     // ctx.body = await tweetController.insertMany(ctx.app.client);
-    ctx.body = {okay: 'yessss!'};
+    ctx.body = { okay: 'yessss!' };
   })
 
   .get(`${BASE}`, async (ctx) => {
