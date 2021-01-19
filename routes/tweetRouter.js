@@ -10,7 +10,7 @@ router
   .post(`${BASE}/search/recent`, async (ctx) => {
     const query = ctx.request.body;
 
-    await twitterApi.searchRecent();
+    await twitterApi.searchRecent(query);
 
     // ctx.body = await tweetController.insertMany(ctx.app.client);
     ctx.body = { okay: 'yessss!' };

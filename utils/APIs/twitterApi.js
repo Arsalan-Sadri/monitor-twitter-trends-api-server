@@ -73,11 +73,12 @@ module.exports = {
     return response.body;
   },
 
-  searchRecent: async () => {
+  searchRecent: async (query) => {
     const params = {
       'tweet.fields': 'created_at',
       expansions: 'author_id',
-      query: 'pandemic',
+      max_results: 100,
+      query,
     };
 
     const res = await needle('get', SEARCH_RECENT_BASE_URL, params, {
@@ -90,7 +91,7 @@ module.exports = {
       throw new Error(res.body);
     }
 
-    console.log(res.body);
+    return res.body;
   },
 
   streamConnect: () => {
