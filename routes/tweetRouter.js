@@ -16,26 +16,31 @@ router
   .get(`${BASE}/search/recent`, async (ctx) => {
     const { client } = ctx.app;
     const { query } = ctx.request.query;
+    let hundreds = 0;
 
     let {
       data,
       meta: { next_token },
     } = await twitterApi.searchRecent(query);
 
+    hundreds += 100;
+
     await tweetController.bulk(client, data, 'tweet');
 
     while (next_token !== null) {
-      console.log(next_token);
-
       const {
         data,
         meta: { next_token: nt },
       } = await twitterApi.searchRecent(query, next_token);
 
+      hundreds += 100;
+
       await tweetController.bulk(client, data, 'tweet');
 
-      if (nt) {
+      if (nt && hundreds < 10000) {
         next_token = nt;
+      } else {
+        next_token = null;
       }
     }
 
@@ -43,27 +48,17 @@ router
   })
 
   .post(`${BASE}/search/stream`, async (ctx) => {
-    // const rules = ctx.request.body;
+    const rules = ctx.request.body;
 
-    // const [newRule] = await twitterApi.addRules(rules);
+    const [newRule] = await twitterApi.addRules(rules);
 
-    // await tweetController.indexOne(ctx.app.client, newRule, 'rule');
+    await tweetController.indexOne(ctx.app.client, newRule, 'rule');
 
     return true;
   })
 
   .get(`${BASE}`, async (ctx) => {
     ctx.body = await tweetController.getAll(ctx.app.client);
-  })
-
-  .delete(`${BASE}/:make/:model/:year`, async (ctx, next) => {
-    await tweetController.deleteOne(ctx);
-    ctx.status = 200;
-  })
-
-  .put(`${BASE}/:make/:model/:year`, async (ctx, next) => {
-    await tweetController.updateOne(ctx);
-    ctx.status = 200;
   });
 
 module.exports = router.routes();
