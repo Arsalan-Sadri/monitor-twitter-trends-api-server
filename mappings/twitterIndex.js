@@ -39,6 +39,12 @@ const { client } = require('../config.js');
           author_id: {
             type: 'keyword',
           },
+          value: {
+            type: 'text',
+          },
+          tag: {
+            type: 'text',
+          },
         },
       },
     },

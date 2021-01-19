@@ -8,7 +8,7 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "dev:cloud": "NODE_ENV=production npm run dev",
-    "migrate": "node mappings/twitter_index.js",
+    "migrate": "node mappings/twitterIndex.js",
     "deploy": "git push heroku master",
     "deploy:create": "heroku create && npm run set:env && npm run deploy",
     "set:env": "source .heroku-env && heroku config:set ELASTIC_CLOUD_ID=$ELASTIC_CLOUD_ID ELASTIC_CLOUD_USERNAME=$ELASTIC_CLOUD_USERNAME ELASTIC_CLOUD_PASSWORD=$ELASTIC_CLOUD_PASSWORD"
