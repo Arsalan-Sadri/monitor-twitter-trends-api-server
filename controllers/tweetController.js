@@ -33,7 +33,11 @@ module.exports = {
   },
 
   searchAll: async (client) => {
-    const res = await client.search({
+    const {
+      body: {
+        hits: { hits },
+      },
+    } = await client.search({
       index: 'twitter',
       body: {
         query: {
@@ -42,14 +46,7 @@ module.exports = {
       },
     });
 
-    if (res.statusCode !== 200) {
-      throw new Error(res.body);
-    }
-
-    const allData = res.body.hits.hits;
-    const tweets = allData.map(({ _source }) => _source);
-
-    return tweets;
+    return hits.map(({ _source }) => _source);
   },
 
   deleteOne: ({ params }) => {
