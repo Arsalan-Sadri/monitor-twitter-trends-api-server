@@ -31,6 +31,7 @@ module.exports = {
       },
     } = await client.search({
       index: 'twitter',
+      size: 10000,
       body: {
         query: {
           match_all: {},
