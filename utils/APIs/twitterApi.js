@@ -58,24 +58,23 @@ module.exports = {
     return response.body;
   },
 
-  setRules: async (rules) => {
-    const data = {
+  addRules: async (rules) => {
+    const addRules = {
       add: rules,
     };
 
-    const response = await needle('post', RULES_BASE_ENDPOINT, data, {
+    const res = await needle('post', RULES_BASE_ENDPOINT, addRules, {
       headers: {
         'content-type': 'application/json',
         authorization: `Bearer ${TOKEN}`,
       },
     });
 
-    if (response.statusCode !== 201) {
-      throw new Error(response.body);
-      return null;
+    if (res.statusCode !== 201) {
+      throw new Error(res.body);
     }
 
-    return response.body;
+    console.log(res.body);
   },
 
   streamConnect: () => {

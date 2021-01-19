@@ -5,10 +5,13 @@ const { api: { twitterApi } } = require('../utils');
 const BASE = '/v1/tweets';
 
 router
-  .post(`${BASE}/search/recent/query`, async (ctx) => {
-    
+  .post(`${BASE}/search/recent`, async (ctx) => {
+    const rules = ctx.request.body;
 
-    ctx.body = await tweetController.insertMany(ctx.app.client);
+    await twitterApi.addRules(rules);
+
+    // ctx.body = await tweetController.insertMany(ctx.app.client);
+    ctx.body = {okay: 'yessss!'};
   })
 
   .get(`${BASE}`, async (ctx) => {
