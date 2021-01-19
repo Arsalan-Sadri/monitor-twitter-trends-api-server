@@ -1,10 +1,13 @@
 const router = require('koa-router')();
 const tweetController = require('../controllers/tweetController.js');
+const { api: { twitterApi } } = require('../utils');
 
-const BASE = '/api/tweets';
+const BASE = '/v1/tweets';
 
 router
-  .post(`${BASE}/bulk`, async (ctx) => {
+  .post(`${BASE}/search/recent/query`, async (ctx) => {
+    
+
     ctx.body = await tweetController.insertMany(ctx.app.client);
   })
 
