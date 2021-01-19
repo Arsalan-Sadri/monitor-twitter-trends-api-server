@@ -1,5 +1,5 @@
 module.exports = {
-  insertOne: async (client, doc, type) => {
+  indexOne: async (client, doc, type) => {
     doc.type = type;
 
     const res = await client.index({
@@ -13,8 +13,19 @@ module.exports = {
     }
   },
 
-  insertMany: (client) => {
-    return true;
+  bulk: async (client, docs, type) => {
+    dataSet = docs.map((doc) => {
+      doc, type;
+    });
+    console.log(dataSet);
+
+    // const res = await client.bulk({
+    //   index: 'twitter',
+    //   refresh: 'true',
+    //   body: doc,
+    // });
+
+    // console.log(res);
   },
 
   getAll: async (client) => {

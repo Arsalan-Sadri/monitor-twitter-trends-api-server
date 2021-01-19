@@ -7,10 +7,13 @@ const {
 const BASE = '/v1/tweets';
 
 router
-  .post(`${BASE}/search/recent`, async (ctx) => {
-    const query = ctx.request.body;
+  .get(`${BASE}/search/recent`, async (ctx) => {
+    const { query } = ctx.request.query;
 
-    await twitterApi.searchRecent(query);
+    const { data } = await twitterApi.searchRecent(query);
+
+    console.log(data);
+    // await tweetController.bulk(ctx.app.client, data, 'tweet');
 
     // ctx.body = await tweetController.insertMany(ctx.app.client);
     ctx.body = { okay: 'yessss!' };
@@ -21,7 +24,7 @@ router
 
     // const [newRule] = await twitterApi.addRules(rules);
 
-    // await tweetController.insertOne(ctx.app.client, newRule, 'rule');
+    // await tweetController.indexOne(ctx.app.client, newRule, 'rule');
 
     return true;
   })
