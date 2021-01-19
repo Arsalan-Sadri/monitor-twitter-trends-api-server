@@ -8,7 +8,9 @@ const BASE = '/v1/tweets';
 
 router
   .get(`${BASE}`, async (ctx) => {
-    ctx.body = await tweetController.searchAll(client);
+    const { client } = ctx.app;
+
+    ctx.body = await tweetController.matchAll(client);
   })
 
   .get(`${BASE}/search/recent`, async (ctx) => {
@@ -37,7 +39,7 @@ router
       }
     }
 
-    ctx.body = await tweetController.searchAll(client);
+    ctx.body = await tweetController.matchAll(client);
   })
 
   .post(`${BASE}/search/stream`, async (ctx) => {

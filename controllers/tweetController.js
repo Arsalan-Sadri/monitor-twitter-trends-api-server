@@ -24,7 +24,7 @@ module.exports = {
     });
   },
 
-  searchAll: async (client) => {
+  matchAll: async (client) => {
     const {
       body: {
         hits: { hits },
