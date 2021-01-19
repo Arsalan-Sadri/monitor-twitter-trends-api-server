@@ -14,18 +14,22 @@ module.exports = {
   },
 
   bulk: async (client, docs, type) => {
-    docs = docs.map((doc) => ({
-      ...doc,
-      type,
-    }));
+    const body = docs.flatMap((doc) => [
+      { index: { _index: 'twitter' } },
+      {
+        ...doc,
+        type,
+      },
+    ]);
 
-    // const res = await client.bulk({
-    //   index: 'twitter',
-    //   refresh: 'true',
-    //   body: doc,
-    // });
+    const res = await client.bulk({
+      refresh: 'true',
+      body,
+    });
 
-    // console.log(res);
+    if (res.statusCode !== 200) {
+      throw new Error(res.body);
+    }
   },
 
   getAll: async (client) => {

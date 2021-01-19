@@ -14,6 +14,8 @@ router
 
     await tweetController.bulk(ctx.app.client, data, 'tweet');
 
+  
+
     // ctx.body = await tweetController.insertMany(ctx.app.client);
     ctx.body = { okay: 'yessss!' };
   })
