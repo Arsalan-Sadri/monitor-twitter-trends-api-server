@@ -1,3 +1,7 @@
+if (require.main.filename.includes('twitterIndex.js')) {
+  require('dotenv').config();
+}
+
 const { Client } = require('@elastic/elasticsearch');
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
