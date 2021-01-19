@@ -1,7 +1,7 @@
 const Koa = require('koa');
 const logger = require('koa-logger');
 const koaBody = require('koa-body');
-const tweetRouter = require('./routes/tweet.js');
+const tweetRouter = require('./routes/tweetRouter.js');
 
 const app = new Koa();
 

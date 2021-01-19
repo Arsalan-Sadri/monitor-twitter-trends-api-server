@@ -1,8 +1,11 @@
-require('dotenv').config();
 const needle = require('needle');
 
-const { TWITTER_BEARER_TOKEN: TOKEN } = process.env;
-const TIMEOUT = parseInt(process.env.TWITTER_STREAM_READ_TIMEOUT);
+const {
+  TWITTER_BEARER_TOKEN: TOKEN,
+  TWITTER_STREAM_READ_TIMEOUT: TIMEOUT_STR,
+} = process.env;
+
+const TIMEOUT = parseInt(TIMEOUT_STR);
 
 const RULES_BASE_ENDPOINT = 'https://api.twitter.com/2/tweets/search/stream/rules';
 const STREAM_BASE_ENDPOINT = 'https://api.twitter.com/2/tweets/search/stream';
