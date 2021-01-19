@@ -32,9 +32,9 @@ module.exports = {
     }
   },
 
-  getAll: async (client) => {
-    const { body } = await client.search({
-      index: 'game-of-thrones',
+  searchAll: async (client) => {
+    const res = await client.search({
+      index: 'twitter',
       body: {
         query: {
           match_all: {},
@@ -42,7 +42,14 @@ module.exports = {
       },
     });
 
-    return body.hits.hits;
+    if (res.statusCode !== 200) {
+      throw new Error(res.body);
+    }
+
+    const allData = res.body.hits.hits;
+    const tweets = allData.map(({ _source }) => _source);
+
+    return tweets;
   },
 
   deleteOne: ({ params }) => {
