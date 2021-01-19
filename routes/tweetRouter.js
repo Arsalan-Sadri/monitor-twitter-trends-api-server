@@ -9,12 +9,13 @@ const BASE = '/v1/tweets';
 router
   .get(`${BASE}/search/recent`, async (ctx) => {
     const { query } = ctx.request.query;
+    const { client } = ctx.app;
 
     const { data } = await twitterApi.searchRecent(query);
 
-    await tweetController.bulk(ctx.app.client, data, 'tweet');
+    await tweetController.bulk(client, data, 'tweet');
 
-    ctx.body = await tweetController.searchAll(ctx.app.client);
+    ctx.body = await tweetController.searchAll(client);
   })
 
   .post(`${BASE}/search/stream`, async (ctx) => {
