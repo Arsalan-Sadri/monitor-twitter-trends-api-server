@@ -9,8 +9,7 @@ const BASE = '/v1/tweets';
 router
   .get(`${BASE}/search/recent`, async (ctx) => {
     const { client } = ctx.app;
-    // const { query } = ctx.request.query;
-
+    const { query } = ctx.request.query;
     // const { data } = await twitterApi.searchRecent(query);
 
     await tweetController.bulk(client, require('./mockData.js'), 'tweet');

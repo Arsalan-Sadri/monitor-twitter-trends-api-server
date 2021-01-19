@@ -1,11 +1,15 @@
 const Koa = require('koa');
 const logger = require('koa-logger');
 const koaBody = require('koa-body');
+const cors = require('@koa/cors');
+const helmet = require('koa-helmet');
 const tweetRouter = require('./routes/tweetRouter.js');
 
 const app = new Koa();
 
-if (app.env === 'development') app.use(logger());
+app.use(logger());
+app.use(cors());
+app.use(helmet());
 app.use(koaBody());
 
 app.use(tweetRouter);
