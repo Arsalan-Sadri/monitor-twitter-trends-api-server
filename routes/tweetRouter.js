@@ -8,16 +8,22 @@ const BASE = '/v1/tweets';
 
 router
   .post(`${BASE}/search/recent`, async (ctx) => {
-    const rules = ctx.request.body;
+    const query = ctx.request.body;
 
-    const [newRule] = await twitterApi.addRules(rules);
-
-    await tweetController.insertOne(ctx.app.client, newRule, 'rule');
-
-    
+    await twitterApi.searchRecent();
 
     // ctx.body = await tweetController.insertMany(ctx.app.client);
     ctx.body = { okay: 'yessss!' };
+  })
+
+  .post(`${BASE}/search/recent`, async (ctx) => {
+    // const rules = ctx.request.body;
+
+    // const [newRule] = await twitterApi.addRules(rules);
+
+    // await tweetController.insertOne(ctx.app.client, newRule, 'rule');
+
+    return true;
   })
 
   .get(`${BASE}`, async (ctx) => {

@@ -7,13 +7,9 @@ const {
 
 const TIMEOUT = parseInt(TIMEOUT_STR);
 
-const RULES_BASE_ENDPOINT = 'https://api.twitter.com/2/tweets/search/stream/rules';
-const STREAM_BASE_ENDPOINT = 'https://api.twitter.com/2/tweets/search/stream';
-
-// const rules = [
-//   { value: 'dog has:images -is:retweet', tag: 'dog pictures' },
-//   { value: 'cat has:images -grumpy', tag: 'cat pictures' },
-// ];
+const RULES_BASE_URL = 'https://api.twitter.com/2/tweets/search/stream/rules';
+const SEARCH_RECENT_BASE_URL = 'https://api.twitter.com/2/tweets/search/recent';
+const STREAM_BASE_URL = 'https://api.twitter.com/2/tweets/search/stream';
 
 module.exports = {
   addRules: async (rules) => {
@@ -21,7 +17,7 @@ module.exports = {
       add: rules,
     };
 
-    const res = await needle('post', RULES_BASE_ENDPOINT, addRules, {
+    const res = await needle('post', RULES_BASE_URL, addRules, {
       headers: {
         'content-type': 'application/json',
         authorization: `Bearer ${TOKEN}`,
@@ -36,7 +32,7 @@ module.exports = {
   },
 
   getAllRules: async () => {
-    const response = await needle('get', RULES_BASE_ENDPOINT, {
+    const response = await needle('get', RULES_BASE_URL, {
       headers: {
         Authorization: `Bearer ${TOKEN}`,
       },
@@ -62,7 +58,7 @@ module.exports = {
       },
     };
 
-    const response = await needle('post', RULES_BASE_ENDPOINT, data, {
+    const response = await needle('post', RULES_BASE_URL, data, {
       headers: {
         'content-type': 'application/json',
         authorization: `Bearer ${TOKEN}`,
@@ -77,6 +73,26 @@ module.exports = {
     return response.body;
   },
 
+  searchRecent: async () => {
+    const params = {
+      'tweet.fields': 'created_at',
+      expansions: 'author_id',
+      query: 'pandemic',
+    };
+
+    const res = await needle('get', SEARCH_RECENT_BASE_URL, params, {
+      headers: {
+        authorization: `Bearer ${TOKEN}`,
+      },
+    });
+
+    if (res.statusCode !== 200) {
+      throw new Error(res.body);
+    }
+
+    console.log(res.body);
+  },
+
   streamConnect: () => {
     const options = {
       headers: {
@@ -87,7 +103,7 @@ module.exports = {
 
     const QUERY_PARAMS = `tweet.fields=created_at&expansions=author_id`;
 
-    const stream = needle.get(`${STREAM_BASE_ENDPOINT}?${QUERY_PARAMS}`, options);
+    const stream = needle.get(`${STREAM_BASE_URL}?${QUERY_PARAMS}`, options);
 
     stream
       .on('data', (data) => {
