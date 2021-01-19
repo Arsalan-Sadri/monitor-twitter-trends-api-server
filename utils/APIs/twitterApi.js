@@ -74,7 +74,7 @@ module.exports = {
       throw new Error(res.body);
     }
 
-    console.log(res.body);
+    return res.body.data
   },
 
   streamConnect: () => {
