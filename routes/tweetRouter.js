@@ -16,7 +16,7 @@ router
     ctx.body = { okay: 'yessss!' };
   })
 
-  .post(`${BASE}/search/recent`, async (ctx) => {
+  .post(`${BASE}/search/stream`, async (ctx) => {
     // const rules = ctx.request.body;
 
     // const [newRule] = await twitterApi.addRules(rules);
