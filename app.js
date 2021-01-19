@@ -7,8 +7,8 @@ const tweetRouter = require('./routes/tweetRouter.js');
 
 const app = new Koa();
 
-app.use(logger());
 app.use(cors());
+app.use(logger());
 app.use(helmet());
 app.use(koaBody());
 
