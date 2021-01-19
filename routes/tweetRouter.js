@@ -7,13 +7,35 @@ const {
 const BASE = '/v1/tweets';
 
 router
+  .get(`${BASE}`, async (ctx) => {
+    ctx.body = await tweetController.searchAll(client);
+  })
+
   .get(`${BASE}/search/recent`, async (ctx) => {
     const { client } = ctx.app;
     const { query } = ctx.request.query;
 
-    const { data } = await twitterApi.searchRecent(query);
+    let {
+      data,
+      meta: { next_token },
+    } = await twitterApi.searchRecent(query);
 
     await tweetController.bulk(client, data, 'tweet');
+
+    while (next_token !== null) {
+      console.log(next_token);
+
+      const {
+        data,
+        meta: { next_token: nt },
+      } = await twitterApi.searchRecent(query, next_token);
+
+      await tweetController.bulk(client, data, 'tweet');
+
+      if (nt) {
+        next_token = nt;
+      }
+    }
 
     ctx.body = await tweetController.searchAll(client);
   })

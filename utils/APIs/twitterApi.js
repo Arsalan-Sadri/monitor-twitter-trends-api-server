@@ -73,13 +73,17 @@ module.exports = {
     return response.body;
   },
 
-  searchRecent: async (query) => {
+  searchRecent: async (query, next_token = null) => {
     const params = {
       'tweet.fields': 'created_at',
       expansions: 'author_id',
       max_results: 100,
       query,
     };
+
+    if (next_token !== null) {
+      params.next_token = next_token;
+    }
 
     const res = await needle('get', SEARCH_RECENT_BASE_URL, params, {
       headers: {
