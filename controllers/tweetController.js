@@ -8,7 +8,9 @@ module.exports = {
       body: doc,
     });
 
-    console.log(res);
+    if (res.statusCode !== 201) {
+      throw new Error(res.body);
+    }
   },
 
   insertMany: (client) => {
