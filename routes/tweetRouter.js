@@ -28,6 +28,8 @@ router
     await tweetController.bulk(client, data, 'tweet');
 
     while (next_token !== null) {
+      console.log(next_token);
+
       const {
         data,
         meta: { next_token: nt },
@@ -37,7 +39,7 @@ router
 
       await tweetController.bulk(client, data, 'tweet');
 
-      if (nt && hundreds < 10000) {
+      if (nt && hundreds < 1000) {
         next_token = nt;
       } else {
         next_token = null;
