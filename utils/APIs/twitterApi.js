@@ -90,9 +90,6 @@ module.exports = {
         authorization: `Bearer ${TOKEN}`,
       },
     });
-    console.log(res);
-    console.log(res.statusCode);
-    console.log(res.body);
 
     if (res.statusCode !== 200) {
       throw new Error(res.body);
