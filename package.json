@@ -11,7 +11,7 @@
     "migrate:local": "node mappings/twitterIndex.js",
     "migrate:cloud": "NODE_ENV=production node mappings/twitterIndex.js",
     "deploy": "git push heroku master",
-    "deploy:create": "heroku create && npm run set:heroku && npm run deploy",
+    "deploy:create": "heroku apps:destroy && heroku create && npm run set:heroku && npm run deploy",
     "set:heroku": "bash .heroku-env"
   },
   "engines": {
