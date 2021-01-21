@@ -10,11 +10,14 @@
     "dev:cloud": "NODE_ENV=production npm run dev",
     "migrate:local": "node mappings/twitterIndex.js",
     "migrate:cloud": "NODE_ENV=production node mappings/twitterIndex.js",
-    "deploy:prod": "git push heroku master",
-    "deploy:stg": "git push heroku-stg dev",
-    "deploy:prod:create": "heroku apps:destroy && heroku apps:create twitter-api && npm run set:env && npm run deploy:prod",
-    "deploy:stg:create": "heroku apps:destroy && heroku apps:create twitter-api-stg --remote heroku-stg && npm run set:env && npm run deploy:stg",
-    "set:env": "bash .heroku-env"
+    "deploy:prod": "git push prod master",
+    "deploy:stg": "git push stg dev:master",
+    "deploy:prod:create": "heroku apps:create twitter-api --remote prod && npm run set:env:prod && npm run deploy:prod",
+    "deploy:stg:create": "heroku apps:create twitter-api-stg --remote stg && npm run set:env:stg && npm run deploy:stg",
+    "set:env:prod": "bash .env-prod",
+    "set:env:stg": "bash .env-stg",
+    "prod:info": "heroku ps --remote prod && heroku apps:info --remote prod",
+    "stg:info": "heroku ps --remote stg && heroku apps:info --remote stg"
   },
   "engines": {
     "node": "14.x"
